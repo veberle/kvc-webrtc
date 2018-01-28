@@ -1,6 +1,7 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { WebrtcService } from '../../service/webrtc.service';
 import { NgZone } from '@angular/core/src/zone/ng_zone';
+import { ActivatedRoute } from "@angular/router";
 
 declare var jquery: any;
 declare var $: any;
@@ -16,26 +17,31 @@ export class VideoComponent implements OnInit {
   videoPaused = false;
   microphonePaused = false;
 
-  constructor(private webrtcService: WebrtcService) { }
+  constructor(private webrtcService: WebrtcService, private route: ActivatedRoute) {
+    this.route.params.subscribe((params) => {
+      this.channelName = params.channelName;
+      this.startCommunication(this.channelName);
+    });
+  }
 
-  ngOnInit() { 
-
+  ngOnInit() {
+    console.log("init VideoComponent");
   }
 
   pauseVideo() {
     this.webrtcService.client.pauseVideo();
     this.videoPaused = true;
-  } 
+  }
   resumeVideo() {
     this.webrtcService.client.resumeVideo();
     this.videoPaused = false;
-  } 
+  }
 
-   muteAudio() {
-     this.webrtcService.client.mute();
-     this.microphonePaused = true;
-   }
-   unmuteAudio() {
+  muteAudio() {
+    this.webrtcService.client.mute();
+    this.microphonePaused = true;
+  }
+  unmuteAudio() {
     this.webrtcService.client.unmute();
     this.microphonePaused = false;
   }
@@ -67,8 +73,8 @@ export class VideoComponent implements OnInit {
           if (container.old_width === undefined) {
             container.old_width = container.style.width;
             container.old_height = container.style.height;
-            container.style.width = (<any> window).innerWidth - 50 + 'px';
-            container.style.height = (<any> window).innerHeight - 100 + 'px';
+            container.style.width = (<any>window).innerWidth - 50 + 'px';
+            container.style.height = (<any>window).innerHeight - 100 + 'px';
           } else {
             container.style.width = container.old_width
             container.style.height = container.old_height;
