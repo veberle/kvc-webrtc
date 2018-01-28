@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { WebrtcService } from '../service/webrtc.service';
 
-declare var jquery:any;
-declare var $ :any;
+declare var jquery: any;
+declare var $: any;
 
 @Component({
   selector: 'meeting',
@@ -10,7 +10,7 @@ declare var $ :any;
   styleUrls: ['./meeting.component.css']
 })
 export class MeetingComponent implements OnInit {
-  channel: String ='';
+  channel: String = '';
   meetingVisable = true;
 
   constructor(private webrtcService: WebrtcService) { }
@@ -23,24 +23,24 @@ export class MeetingComponent implements OnInit {
     this.webrtcService.client.on('readyToCall', () => {
       this.webrtcService.joinRoom(this.channel);
     });
-    this.webrtcService.client.on('videoAdded', function (video, peer) {
+    this.webrtcService.client.on('videoAdded', (video, peer) => {
       console.log('video added', peer);
       $('#screenShareBtn').prop("disabled", false);
-    
+
       var remotes = document.getElementById('remotes');
       if (remotes) {
-        var container = <any> document.createElement('div');
+        var container = <any>document.createElement('div');
         container.className = 'kvc-video-container';
         container.id = 'container_' + this.webrtcService.client.getDomId(peer);
         container.appendChild(video);
-    
+
         // suppress contextmenu
-        video.oncontextmenu = function () {
+        video.oncontextmenu = () => {
           return false;
         };
-    
+
         // resize the video on click
-        video.onclick = function () {
+        video.onclick = () => {
           if (container.old_width === undefined) {
             container.old_width = container.style.width;
             container.old_height = container.style.height;
@@ -53,13 +53,13 @@ export class MeetingComponent implements OnInit {
             container.old_height = undefined;
           }
         };
-    
+
         // show the ice connection state
         if (peer && peer.pc) {
           var connstate = document.createElement('div');
           connstate.className = 'kvc-connectionstate';
           container.appendChild(connstate);
-          peer.pc.on('iceConnectionStateChange', function (event) {
+          peer.pc.on('iceConnectionStateChange', (event) => {
             switch (peer.pc.iceConnectionState) {
               case 'checking':
                 connstate.innerText = 'Connecting to peer...';
@@ -83,9 +83,9 @@ export class MeetingComponent implements OnInit {
         remotes.appendChild(container);
       }
     });
-    
+
     // a peer video was removed
-    this.webrtcService.client.on('videoRemoved', function (video, peer) {
+    this.webrtcService.client.on('videoRemoved', (video, peer) => {
       console.log('video removed ', peer);
       var remotes = document.getElementById('remotes');
       var el = document.getElementById(peer ? 'container_' + this.webrtcService.client.getDomId(peer) : 'localScreenContainer');
@@ -93,9 +93,9 @@ export class MeetingComponent implements OnInit {
         remotes.removeChild(el);
       }
     });
-    
-    this.webrtcService.client.on('localScreenAdded', function (video) {
-      video.onclick = function () {
+
+    this.webrtcService.client.on('localScreenAdded', (video) => {
+      video.onclick = () => {
         video.style.width = video.videoWidth + 'px';
         video.style.height = video.videoHeight + 'px';
       };
@@ -103,7 +103,7 @@ export class MeetingComponent implements OnInit {
       $('#localScreenContainer').show();
     });
     // local screen removed
-    this.webrtcService.client.on('localScreenRemoved', function (video) {
+    this.webrtcService.client.on('localScreenRemoved', (video) => {
       $('#screenShareBtn').prop("disabled", false);
       document.getElementById('localScreenContainer').removeChild(video);
       $('#localScreenContainer').hide();
