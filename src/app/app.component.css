@@ -8,5 +8,5 @@ h1.kvc-logo {
     text-align: center;
     position: absolute;
     top: -50px;
-    left: 210px;
+    left: calc(50% - 325px);
 }
