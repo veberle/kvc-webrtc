@@ -9,12 +9,14 @@ import { KvcMaterialModule } from './kvc-material/kvc-material.module';
 import { AppComponent } from './app.component';
 import { MeetingComponent } from './meeting/meeting.component';
 import { WebrtcService } from './service/webrtc.service';
+import { VideoComponent } from './meeting/video/video.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    MeetingComponent
+    MeetingComponent,
+    VideoComponent
   ],
   imports: [
     BrowserModule,
@@ -23,7 +25,7 @@ import { WebrtcService } from './service/webrtc.service';
     HttpModule,
     HttpClientModule,
     KvcMaterialModule,
-    ReactiveFormsModule,
+    ReactiveFormsModule
   ],
   providers: [WebrtcService],
   bootstrap: [AppComponent]

@@ -13,10 +13,4 @@
   </mat-card-content>
 </mat-card>
 
-<div *ngIf="!meetingVisable">
-  <video id="localVideo" class="kvc-local-video"></video>
-  <div id="remotes">
-    <div id="localScreenContainer" class="videoContainer">
-    </div>
-  </div>
-</div>
+<webrtc-video [meetingVisable]="meetingVisable"></webrtc-video>
