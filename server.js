@@ -1,6 +1,7 @@
 const express = require('express');
 const sockets = require('signal-master/sockets')
 const path = require('path');
+const config = require('getconfig');
 
 const app = express();
 
@@ -30,4 +31,4 @@ app.get('/*', function (req, res) {
 // Heroku port
 var server = app.listen(process.env.PORT || 8080);
 
-sockets(server, {});
+sockets(server, config);

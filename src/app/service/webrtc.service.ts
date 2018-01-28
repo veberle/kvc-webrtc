@@ -15,7 +15,8 @@ export class WebrtcService {
       // the id/element dom element that will hold remote videos
       remoteVideosEl: '',
       // immediately ask for camera access
-      autoRequestMedia: true
+      autoRequestMedia: true,
+      url: 'https://kvc-webrtc.herokuapp.com'
     });
   }
 
