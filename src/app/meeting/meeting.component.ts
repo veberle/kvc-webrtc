@@ -20,7 +20,6 @@ export class MeetingComponent implements OnInit {
   joinChannel(): void {
     this.meetingVisable = false;
     this.router.navigate(['meeting', this.channel]);
-    this.videoComponent.startCommunication(this.channel);
   }
 
 }

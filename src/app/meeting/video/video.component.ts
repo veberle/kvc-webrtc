@@ -20,7 +20,9 @@ export class VideoComponent implements OnInit {
   constructor(private webrtcService: WebrtcService, private route: ActivatedRoute) {
     this.route.params.subscribe((params) => {
       this.channelName = params.channelName;
-      this.startCommunication(this.channelName);
+      if (this.channelName !== undefined) {
+        this.startCommunication(this.channelName);
+      }
     });
   }
 
