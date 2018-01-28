@@ -1,4 +1,14 @@
 <div *ngIf="!meetingVisable">
+  <h3>Channel: {{channelName}}</h3>
+
+  <mat-card class="kvc-video-toolbar">
+    <button *ngIf="microphonePaused" (click)="unmuteAudio($event)" class="fa fa-microphone" aria-hidden="true"></button>
+    <button *ngIf="!microphonePaused" (click)="muteAudio($event)" class="fa fa-microphone-slash" aria-hidden="true"></button>
+    <button *ngIf="videoPaused" (click)="resumeVideo($event)" class="fa fa-video-camera" aria-hidden="true"></button>
+    <button *ngIf="!videoPaused" (click)="pauseVideo($event)" class="fa fa-pause" aria-hidden="true"></button>
+    <mat-icon class="fa fa-window-restore" aria-hidden="true"></mat-icon>
+  </mat-card>
+
   <video id="localVideo" class="kvc-local-video"></video>
   <div id="remotes">
     <div id="localScreenContainer" class="videoContainer">

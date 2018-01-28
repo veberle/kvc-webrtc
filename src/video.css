@@ -3,12 +3,16 @@
 .kvc-local-video {
     height: 100px;
     box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+    position: absolute;
+    top: 0px;
+    right: 0px;
 }
 
 .kvc-video-container {
-    position: relative;
+    position: absolute;
     width: 200px;
     height: 150px;
+    top: 100px;
 }
 
 .kvc-video-container video {
