@@ -1,0 +1,22 @@
+<mat-card class="example-card" *ngIf="meetingVisable" class="kvc-meeting-join">
+  <mat-card-header>
+    <mat-card-title>Meeting</mat-card-title>
+    <mat-card-subtitle>Join a Channel by name</mat-card-subtitle>
+  </mat-card-header>
+  <mat-card-content>
+    <mat-form-field>
+      <input matInput placeholder="Channelname" [(ngModel)]="channel" required>
+    </mat-form-field>
+    <mat-card-actions>
+      <button mat-button (click)="joinChannel($event)" [disabled]="!channel">Join</button>
+    </mat-card-actions>
+  </mat-card-content>
+</mat-card>
+
+<div *ngIf="!meetingVisable">
+  <video id="localVideo" class="kvc-local-video"></video>
+  <div id="remotes">
+    <div id="localScreenContainer" class="videoContainer">
+    </div>
+  </div>
+</div>
