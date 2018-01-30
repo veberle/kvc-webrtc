@@ -2,6 +2,7 @@ import { Component, OnInit, Input } from '@angular/core';
 import { WebrtcService } from '../../service/webrtc.service';
 import { NgZone } from '@angular/core/src/zone/ng_zone';
 import { ActivatedRoute } from "@angular/router";
+import { MatSnackBar } from '@angular/material';
 
 declare var jquery: any;
 declare var $: any;
@@ -17,7 +18,9 @@ export class VideoComponent implements OnInit {
   videoPaused = false;
   microphonePaused = false;
 
-  constructor(private webrtcService: WebrtcService, private route: ActivatedRoute) {
+  constructor(private webrtcService: WebrtcService,
+              private route: ActivatedRoute,
+              public snackBar: MatSnackBar) {
     this.route.params.subscribe((params) => {
       this.channelName = params.channelName;
       if (this.channelName !== undefined) {
@@ -46,6 +49,26 @@ export class VideoComponent implements OnInit {
   unmuteAudio() {
     this.webrtcService.client.unmute();
     this.microphonePaused = false;
+  }
+
+  startSharescreen() {
+    if (this.webrtcService.client.getLocalScreen()) {
+      this.webrtcService.client.stopScreenShare();
+    } else {
+      this.webrtcService.client.shareScreen((err) => {
+        if (err) {
+          console.log(err);
+          this.snackBar.open("Could not share screen!", null, {
+            duration: 2000,
+          });
+        } else {
+          console.log("started sharing screen");
+          this.snackBar.open("Startet sharing screen!", null, {
+            duration: 2000,
+          });
+        }
+      });
+    }
   }
 
   public startCommunication(channelName: String): void {

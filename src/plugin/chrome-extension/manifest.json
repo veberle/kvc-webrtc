@@ -1,0 +1,25 @@
+{
+  "name": "KVC - Screensharing",
+  "description": "Chrome Plugin for KVC - Kathy-Vinc-Conferencing",
+  "version": "0.0.1",
+  "manifest_version": 2,
+  "minimum_chrome_version": "34",
+  "icons": {
+  },
+  "permissions": [
+    "desktopCapture"
+  ],
+  "background": {
+    "scripts": ["background.js"]
+  },
+  "content_scripts": [ {
+    "js": [ "content.js" ],
+    "matches": [ "https://192.168.178.82:8443/*", "https://kvc-webrtc.herokuapp.com/*" ]
+  }],
+  "externally_connectable": {
+      "matches": [
+          "https://192.168.178.82:8443/*",
+          "https://kvc-webrtc.herokuapp.com/*"
+      ]
+  }
+}

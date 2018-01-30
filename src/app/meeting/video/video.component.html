@@ -6,7 +6,7 @@
     <button *ngIf="!microphonePaused" (click)="muteAudio($event)" class="fa fa-microphone-slash" aria-hidden="true"></button>
     <button *ngIf="videoPaused" (click)="resumeVideo($event)" class="fa fa-video-camera" aria-hidden="true"></button>
     <button *ngIf="!videoPaused" (click)="pauseVideo($event)" class="fa fa-pause" aria-hidden="true"></button>
-    <mat-icon class="fa fa-window-restore" aria-hidden="true"></mat-icon>
+    <button (click)="startSharescreen($event)" class="fa fa-window-restore" aria-hidden="true"></button>
   </mat-card>
 
   <video id="localVideo" class="kvc-local-video"></video>
