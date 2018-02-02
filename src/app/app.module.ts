@@ -11,6 +11,7 @@ import { AppComponent } from './app.component';
 import { MeetingComponent } from './meeting/meeting.component';
 import { WebrtcService } from './service/webrtc.service';
 import { VideoComponent } from './meeting/video/video.component';
+import { FullvideoService } from './service/fullvideo.service';
 
 const appRoutes: Routes = [
   { path: '', component: MeetingComponent },
@@ -36,7 +37,7 @@ const appRoutes: Routes = [
       { enableTracing: false } // <-- debugging purposes only
     )
   ],
-  providers: [WebrtcService],
+  providers: [WebrtcService, FullvideoService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

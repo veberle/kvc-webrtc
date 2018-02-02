@@ -8,11 +8,11 @@ h3 {
 }
 
 .kvc-video-toolbar {
-    width: 110px;
+    width: 120px;
     height: 20px;
     opacity: 0.6;
     padding: 5px;
     position: absolute;
     right: 0;
-    top: 105px;
+    top: 0;
 }

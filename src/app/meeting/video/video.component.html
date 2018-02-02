@@ -9,9 +9,15 @@
     <button (click)="startSharescreen($event)" class="fa fa-window-restore" aria-hidden="true"></button>
   </mat-card>
 
-  <video id="localVideo" class="kvc-local-video"></video>
-  <div id="remotes">
-    <div id="localScreenContainer" class="videoContainer">
-    </div>
+  <div id="fullscreenPanel" class="kvc-fullscreen-video">
+    <canvas id="fullscreenVideo"></canvas>
+  </div>
+
+
+  <div id="localScreenContainer" class="kvc-local-screen"></div>
+  <div id="remotes" class="kvc-remote-video-container">
+  <div class="kvc-video-container">
+      <video id="localVideo"></video>
+  </div>
   </div>
 </div>

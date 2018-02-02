@@ -3,6 +3,7 @@ import { WebrtcService } from '../../service/webrtc.service';
 import { NgZone } from '@angular/core/src/zone/ng_zone';
 import { ActivatedRoute } from "@angular/router";
 import { MatSnackBar } from '@angular/material';
+import { FullvideoService } from '../../service/fullvideo.service';
 
 declare var jquery: any;
 declare var $: any;
@@ -19,8 +20,9 @@ export class VideoComponent implements OnInit {
   microphonePaused = false;
 
   constructor(private webrtcService: WebrtcService,
-              private route: ActivatedRoute,
-              public snackBar: MatSnackBar) {
+    private fullvideo: FullvideoService,
+    private route: ActivatedRoute,
+    public snackBar: MatSnackBar) {
     this.route.params.subscribe((params) => {
       this.channelName = params.channelName;
       if (this.channelName !== undefined) {
@@ -75,6 +77,11 @@ export class VideoComponent implements OnInit {
     this.channelName = channelName;
     this.webrtcService.ready();
     this.webrtcService.client.on('readyToCall', () => {
+      $('#localVideo').click(this.fullvideo.fullscreenClickhandler);
+      setTimeout(function() {
+        $("#localVideo").click();
+      }, 1000);
+
       this.webrtcService.joinRoom(channelName);
     });
     this.webrtcService.client.on('videoAdded', (video, peer) => {
@@ -94,19 +101,10 @@ export class VideoComponent implements OnInit {
         };
 
         // resize the video on click
-        video.onclick = () => {
-          if (container.old_width === undefined) {
-            container.old_width = container.style.width;
-            container.old_height = container.style.height;
-            container.style.width = (<any>window).innerWidth - 50 + 'px';
-            container.style.height = (<any>window).innerHeight - 100 + 'px';
-          } else {
-            container.style.width = container.old_width
-            container.style.height = container.old_height;
-            container.old_width = undefined;
-            container.old_height = undefined;
-          }
-        };
+        video.onclick = this.fullvideo.fullscreenClickhandler;
+        setTimeout(function() {
+          $(video).click();
+        }, 1000);
 
         // show the ice connection state
         if (peer && peer.pc) {
@@ -145,14 +143,13 @@ export class VideoComponent implements OnInit {
       var el = document.getElementById(peer ? 'container_' + this.webrtcService.client.getDomId(peer) : 'localScreenContainer');
       if (remotes && el) {
         remotes.removeChild(el);
+        setTimeout(function() {
+          $('video')[$('video').size() - 1].click();
+        }, 1000);
       }
     });
 
     this.webrtcService.client.on('localScreenAdded', (video) => {
-      video.onclick = () => {
-        video.style.width = video.videoWidth + 'px';
-        video.style.height = video.videoHeight + 'px';
-      };
       document.getElementById('localScreenContainer').appendChild(video);
       $('#localScreenContainer').show();
     });
