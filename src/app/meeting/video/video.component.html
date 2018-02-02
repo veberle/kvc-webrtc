@@ -2,22 +2,20 @@
   <h3>Channel: {{channelName}}</h3>
 
   <mat-card class="kvc-video-toolbar">
-    <button *ngIf="microphonePaused" (click)="unmuteAudio($event)" class="fa fa-microphone" aria-hidden="true"></button>
-    <button *ngIf="!microphonePaused" (click)="muteAudio($event)" class="fa fa-microphone-slash" aria-hidden="true"></button>
-    <button *ngIf="videoPaused" (click)="resumeVideo($event)" class="fa fa-video-camera" aria-hidden="true"></button>
-    <button *ngIf="!videoPaused" (click)="pauseVideo($event)" class="fa fa-pause" aria-hidden="true"></button>
-    <button (click)="startSharescreen($event)" class="fa fa-window-restore" aria-hidden="true"></button>
+    <div *ngIf="microphonePaused" (click)="unmuteAudio($event)" class="kvc-command fa fa-microphone" aria-hidden="true"></div>
+    <div *ngIf="!microphonePaused" (click)="muteAudio($event)" class="kvc-command fa fa-microphone-slash" aria-hidden="true"></div>
+    <div *ngIf="videoPaused" (click)="resumeVideo($event)" class="kvc-command fa fa-video-camera" aria-hidden="true"></div>
+    <div *ngIf="!videoPaused" (click)="pauseVideo($event)" class="kvc-command fa fa-pause" aria-hidden="true"></div>
+    <div (click)="startSharescreen($event)" class="kvc-command fa fa-window-restore" aria-hidden="true"></div>
   </mat-card>
 
   <div id="fullscreenPanel" class="kvc-fullscreen-video">
     <canvas id="fullscreenVideo"></canvas>
   </div>
-
-
-  <div id="localScreenContainer" class="kvc-local-screen"></div>
   <div id="remotes" class="kvc-remote-video-container">
   <div class="kvc-video-container">
       <video id="localVideo"></video>
   </div>
+  <div id="localScreenContainer" class="kvc-local-screen"></div>
   </div>
 </div>
